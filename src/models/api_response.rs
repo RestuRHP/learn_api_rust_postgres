@@ -4,5 +4,5 @@ use rocket::serde::{Deserialize, Serialize};
 pub struct ApiResponse<T> {
     pub status_code: u16,
     pub message: String,
-    pub data: T,
+    pub data: Option<T>,
 }
