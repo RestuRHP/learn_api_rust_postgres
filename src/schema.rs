@@ -9,6 +9,7 @@ diesel::table! {
         email -> Nullable<Varchar>,
         #[max_length = 100]
         address -> Nullable<Varchar>,
+        create_at -> Nullable<Timestamptz>,
+        update_at -> Nullable<Timestamptz>,
     }
 }
-

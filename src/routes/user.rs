@@ -7,6 +7,7 @@ use crate::{
 use diesel::prelude::*;
 use rocket::{delete, get, post, put, serde::json::Json, State};
 use uuid::Uuid;
+use chrono::{Utc, FixedOffset};
 
 fn create_response<T>(status_code: u16, message: &str, data: Option<T>) -> ApiResponse<T> {
    ApiResponse {
@@ -107,8 +108,16 @@ pub fn update_user(
       .get()
       .map_err(|_| Json(create_response(500, "Failed to get DB connection", None)))?;
 
+   let jakarta_offset = FixedOffset::east_opt(7 * 3600).expect("Invalid timezone offset");
+   let now_in_jakarta = Utc::now().with_timezone(&jakarta_offset).naive_local();
+
    diesel::update(tb_user::table.filter(tb_user::id.eq(id)))
-      .set(&*updated_user)
+      .set((
+         tb_user::name.eq(updated_user.name.clone()),
+         tb_user::email.eq(updated_user.email.clone()),
+         tb_user::address.eq(updated_user.address.clone()),
+         tb_user::update_at.eq(now_in_jakarta),
+      ))
       .get_result::<User>(&mut conn)
       .map(|user| Json(create_response(200, "User updated successfully", Some(user))))
       .or_else(|e| match e {
