@@ -1,0 +1,17 @@
+[package]
+name = "learn_api_rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.42.0", features = ["full"] }
+uuid = { version = "1.11.0", features = ["serde", "v4"] }
+diesel = { version = "2.2.6", features = ["postgres", "r2d2", "serde_json", "uuid"] }
+serde = { version = "1.0.215", features = ["derive"] }
+serde_json = "1.0.133"
+r2d2 = "0.8.9"
+rocket = { version = "0.5.1", features = ["json"] }
+dotenv = "0.15"
+
+
+

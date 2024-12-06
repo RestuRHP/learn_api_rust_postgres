@@ -1,0 +1,7 @@
+[default]
+address = "127.0.0.1"
+port = 8000
+log_level = "normal"
+
+[default.databases]
+postgres_db = { url = "postgres://cashbac:@127.0.0.1:5432/learn_rust" }
