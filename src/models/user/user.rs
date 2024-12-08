@@ -12,6 +12,7 @@ pub struct User {
     pub address: Option<String>,
     pub create_at: Option<DateTime<Utc>>,
     pub update_at: Option<DateTime<Utc>>,
+    pub password: String,
 }
 
 #[derive(Insertable, AsChangeset, Deserialize)]
@@ -20,5 +21,6 @@ pub struct NewUser {
     pub name: Option<String>,
     pub email: Option<String>,
     pub address: Option<String>,
+    pub password: String,
 }
 
